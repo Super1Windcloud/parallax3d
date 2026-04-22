@@ -1,5 +1,5 @@
 {
-  "name": "parallax3d",
+  "name": "parallax3d.js",
   "type": "module",
   "version": "1.0.0",
   "description": "React 3D parallax components powered by Atropos.",
