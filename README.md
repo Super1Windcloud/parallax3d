@@ -1,6 +1,6 @@
 # parallax3d
 
-A React 3D parallax card component built with [`atropos`](https://github.com/nolimits4web/atropos/tree/master).
+A React component library of 3D parallax UI patterns built with [`atropos`](https://github.com/nolimits4web/atropos/tree/master).
 
 ## Install
 
@@ -34,19 +34,50 @@ Import the official Atropos stylesheet in your app entry:
 import 'atropos/css'
 ```
 
-Then use the component:
+Then import and use any component:
 
 ```tsx
-import { ParallaxCard } from 'parallax3d'
+import {
+  ParallaxCard,
+  ParallaxHero,
+  ParallaxImage,
+  ParallaxProductCard,
+} from 'parallax3d'
 
 export function Example() {
   return (
-    <ParallaxCard
-      title="Neon Horizon"
-      description="A cinematic React card powered by Atropos."
-      imageUrl="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80"
-      tags={['React', 'Atropos', '3D']}
-    />
+    <>
+      <ParallaxHero
+        title="Tactile interfaces for modern launches."
+        description="Use layered motion for hero sections, product stories, and marketing showcases."
+      />
+      <ParallaxImage src="/cover.jpg" alt="Campaign cover" />
+      <ParallaxCard
+        title="Neon Horizon"
+        description="A cinematic React card powered by Atropos."
+        imageUrl="/card.jpg"
+        tags={['React', 'Atropos', '3D']}
+      />
+      <ParallaxProductCard
+        name="Orb Speaker"
+        price="$199"
+        imageUrl="/product.jpg"
+      />
+    </>
   )
 }
 ```
+
+## Exported components
+
+- `ParallaxHero`
+- `ParallaxImage`
+- `ParallaxGalleryItem`
+- `ParallaxCard`
+- `ParallaxProductCard`
+- `ParallaxProfileCard`
+- `ParallaxFeatureTile`
+- `ParallaxBadge`
+- `ParallaxDeviceMockup`
+- `ParallaxPoster`
+- `ParallaxButton`

@@ -1,10 +1,7 @@
-import type { ComponentProps, ReactNode } from 'react'
-import Atropos from 'atropos/react'
+import type { ReactNode } from 'react'
+import { VisualSurface, joinClassNames, tokens, type ParallaxBaseProps } from './shared'
 
-type AtroposProps = ComponentProps<typeof Atropos>
-
-export interface ParallaxCardProps extends Omit<AtroposProps, 'children'> {
-  className?: string
+export interface ParallaxCardProps extends ParallaxBaseProps {
   eyebrow?: string
   title: string
   description: string
@@ -25,63 +22,150 @@ export function ParallaxCard({
   tags = [],
   ctaLabel = 'Explore case study',
   footer,
-  shadow = true,
-  highlight = true,
-  rotateXMax = 16,
-  rotateYMax = 16,
   ...atroposProps
 }: ParallaxCardProps) {
-  const rootClassName = ['parallax-card', className].filter(Boolean).join(' ')
-
   return (
-    <Atropos
-      component="article"
-      className={rootClassName}
-      shadow={shadow}
-      highlight={highlight}
-      rotateXMax={rotateXMax}
-      rotateYMax={rotateYMax}
+    <VisualSurface
+      className={joinClassNames('parallax-card', className)}
+      minHeight={560}
       {...atroposProps}
     >
-      <div className="parallax-card__frame">
-        <div className="parallax-card__glow" data-atropos-offset="-4" />
-        <div className="parallax-card__hero" data-atropos-offset="8">
-          <div className="parallax-card__orb parallax-card__orb--pink" data-atropos-offset="-2" />
-          <div className="parallax-card__orb parallax-card__orb--cyan" data-atropos-offset="3" />
-          <img className="parallax-card__image" src={imageUrl} alt={imageAlt} />
+      <div
+        style={{
+          position: 'absolute',
+          inset: '-18% auto auto -8%',
+          width: 240,
+          height: 240,
+          borderRadius: 999,
+          background: 'radial-gradient(circle, rgba(255,119,183,0.38), transparent 68%)',
+        }}
+        data-atropos-offset="-4"
+      />
+      <div
+        style={{
+          display: 'grid',
+          gap: 18,
+          height: '100%',
+          gridTemplateRows: '1.1fr 1fr',
+        }}
+      >
+        <div
+          style={{
+            position: 'relative',
+            display: 'grid',
+            placeItems: 'center',
+            overflow: 'hidden',
+            borderRadius: 24,
+            background: 'linear-gradient(145deg, rgba(21,33,61,0.95), rgba(8,13,24,0.88))',
+          }}
+          data-atropos-offset="8"
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 16,
+              right: 16,
+              width: 86,
+              height: 86,
+              borderRadius: 999,
+              background: 'radial-gradient(circle, rgba(255,119,183,0.92), rgba(255,119,183,0.08))',
+              filter: 'blur(6px)',
+            }}
+            data-atropos-offset="-2"
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 20,
+              left: 18,
+              width: 112,
+              height: 112,
+              borderRadius: 999,
+              background: 'radial-gradient(circle, rgba(125,232,255,0.92), rgba(125,232,255,0.08))',
+              filter: 'blur(6px)',
+            }}
+            data-atropos-offset="3"
+          />
+          <img
+            src={imageUrl}
+            alt={imageAlt}
+            style={{
+              width: 'calc(100% - 32px)',
+              height: 'calc(100% - 32px)',
+              objectFit: 'cover',
+              borderRadius: 18,
+              boxShadow: '0 18px 48px rgba(0,0,0,0.34)',
+            }}
+          />
         </div>
 
-        <div className="parallax-card__content">
-          <p className="parallax-card__eyebrow" data-atropos-offset="3">
+        <div style={{ display: 'grid', gap: 14, alignContent: 'end' }}>
+          <p
+            style={{
+              margin: 0,
+              fontSize: 12,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: tokens.cyan,
+            }}
+            data-atropos-offset="3"
+          >
             {eyebrow}
           </p>
-          <h2 className="parallax-card__title" data-atropos-offset="6">
+          <h2
+            style={{ margin: 0, fontSize: 'clamp(2rem, 5vw, 2.8rem)', lineHeight: 1 }}
+            data-atropos-offset="6"
+          >
             {title}
           </h2>
-          <p className="parallax-card__description" data-atropos-offset="4">
+          <p style={{ margin: 0, fontSize: 16, color: tokens.muted }} data-atropos-offset="4">
             {description}
           </p>
-
           {tags.length > 0 && (
-            <div className="parallax-card__tags" aria-label="Card tags">
+            <div
+              aria-label="Card tags"
+              style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}
+            >
               {tags.map((tag, index) => (
                 <span
-                  className="parallax-card__tag"
-                  data-atropos-offset={index % 2 === 0 ? '5' : '3'}
                   key={tag}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: 999,
+                    border: `1px solid ${tokens.line}`,
+                    background: 'rgba(125,232,255,0.08)',
+                    fontSize: 13,
+                    color: '#d8f6ff',
+                  }}
+                  data-atropos-offset={index % 2 === 0 ? '5' : '3'}
                 >
                   {tag}
                 </span>
               ))}
             </div>
           )}
-
-          <div className="parallax-card__footer" data-atropos-offset="7">
-            <span className="parallax-card__cta">{ctaLabel}</span>
+          <div
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}
+            data-atropos-offset="7"
+          >
+            <span
+              style={{
+                display: 'inline-flex',
+                minHeight: 44,
+                alignItems: 'center',
+                padding: '0 18px',
+                borderRadius: 999,
+                background: 'linear-gradient(135deg, #46d9ff, #7cf4c8)',
+                color: tokens.dark,
+                fontWeight: 700,
+              }}
+            >
+              {ctaLabel}
+            </span>
             {footer}
           </div>
         </div>
       </div>
-    </Atropos>
+    </VisualSurface>
   )
 }
